@@ -19,30 +19,50 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* index.tsx
+* Home.tsx
 */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import {  WithStyles, createStyles, Theme } from '@material-ui/core/styles';
+import getViewportSize from '../util/getViewportSize'
+import { withStyles } from "@material-ui/styles";
+import CodeStepper from './CodeStepper'
 
-ReactDOM.render(
-  <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
-  </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// Theme-dependent styles
+const styles = ({ palette, spacing }: Theme) => createStyles({
+    root: {
+        marginTop: 60,
+        height: getViewportSize(window).height,
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    card: {
+        marginTop: 60,
+        maxWidth: 450,
+        maxHeight: 200,
+    },
+    content: {
+        flex: '1 0 auto',
+    },
+    button: {
+        margin: spacing(1),
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    },
+  });
+
+
+
+class Home extends React.Component<WithStyles & RouteComponentProps> {
+
+    render() {
+        const {classes} = this.props
+        return (
+            <div className={classes.root}>
+                <CodeStepper />
+            </div>
+        )
+    }
+}
+
+export default withRouter(withStyles(styles)(Home));

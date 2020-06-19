@@ -19,30 +19,35 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* index.tsx
+* theme.tsx
 */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+import red from '@material-ui/core/colors/red';
+import { createMuiTheme } from '@material-ui/core/styles';
 
-ReactDOM.render(
-  <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
-  </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// A custom theme for this app
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#3f51b5',
+      light: '#757de8',
+      dark: '#002984'
+    },
+    secondary: {
+      main: '#f44336',
+      light: '#ff7961',
+      dark: '#ba000d'
+    },
+    text: {
+      secondary: '#ffffff',
+      primary: '#000000',
+    },
+    error: {
+      main: red.A400,
+    },
+    background: {
+      default: '#fff',
+    },
+  },
+});
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+export default theme;

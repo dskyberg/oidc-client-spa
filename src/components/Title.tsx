@@ -19,30 +19,26 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* index.tsx
+* Title.jsx
 */
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+import Typography from '@material-ui/core/Typography';
 
-ReactDOM.render(
-  <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
-  </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+type TitleProps = {
+  component?: any;
+  variant?: any;
+  color?: any;
+  noWrap?: boolean;
+  children: React.ReactNode;
+  className?: string;
+  onClick?: any;
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ const Title:React.FC<TitleProps> = ({component="h1", variant="h6", color="inherit", noWrap=true, children, className, onClick}) => {
+  return (
+    <Typography component={component} variant={variant} color={color} noWrap={noWrap} className={className} onClick={onClick}>
+   {children}
+  </Typography>
+  );
+}
+export default Title

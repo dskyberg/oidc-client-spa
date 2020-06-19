@@ -19,30 +19,30 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* index.tsx
+* getViewportSize.js
 */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+interface ViewPortSize {
+    width: number;
+    height: number;
+}
 
-ReactDOM.render(
-  <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
-  </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+export default function getViewportSize(w:Window): ViewPortSize {
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    // Use the specified window or the current window if no argument
+    w = w || window;
+
+    // This works for all browsers except IE8 and before
+    if (w.innerWidth != null) return { width: w.innerWidth, height: w.innerHeight };
+
+    // For IE (or any browser) in Standards mode
+    var d = w.document;
+    if (document.compatMode === "CSS1Compat")
+        return {
+            width: d.documentElement.clientWidth,
+            height: d.documentElement.clientHeight
+        };
+
+    // For browsers in Quirks mode
+    return { width: d.body.clientWidth, height: d.body.clientHeight };
+
+}
