@@ -21,6 +21,13 @@ $ npm start
 ````
 The client app should pop up on your default browser
 
+### Accounts (Users)
+Both OAuth2/OIDC clients and user accounts are managed in the OIDC Provider service.
+Currently, passwords are not validated.  So, when providing username/password on the
+ODIC Provider Sign In page, you can use any value for password.
+
+I test with `bob.smith@example.com`
+
 ### Host Error
 If you get this error: `Error: getaddrinfo ENOTFOUIND <your hostname>`
 Try unsetting your HOST env variable
