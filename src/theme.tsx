@@ -26,6 +26,13 @@ import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-u
 
 // A custom theme for this app
 const theme = createMuiTheme({
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        color: '#000000',
+      }
+    }
+  },
   palette: {
     primary: {
       main: '#3f51b5',
