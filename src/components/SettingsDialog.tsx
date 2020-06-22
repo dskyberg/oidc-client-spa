@@ -111,19 +111,15 @@ class SettingsDialog extends React.Component<SettingsDialogProps> {
               <FormControlLabel label="Load userinfo" labelPlacement="start" control={ < Switch id="loadUserInfo" checked={ authStore.loadUserInfo }  value="loadUserInfo" inputProps={ { 'aria-label': 'loadUserInfo' } } /> } />
               <FormControlLabel label="Revoke access_token On Signout" labelPlacement="start" control={ < Switch id="revokeAccessTokenOnSignout" checked={ authStore.revokeAccessTokenOnSignout }  value="revokeAccessTokenOnSignout" inputProps={ { 'aria-label': 'revokeAccessTokenOnSignout' } } /> } />
               <FormControl className={classes.formControl}>
-              <FormLabel component="legend">Response Type</FormLabel>
-              <Select
-                native
-                value={authStore.response_type}
-                inputProps={{
-                  name: 'response_type',
-                  id: 'response_type',
-                }}
-              >
-              {metadata?.response_types_supported.map(rt => <option key={rt} value={rt}>{rt}</option>)}
-              </Select>
-            </FormControl>
-            <FormControl>
+                <FormLabel component="legend">Response Type</FormLabel>
+                <CheckedSelect
+                  id="response_types"
+                  value={[authStore.response_type]}
+                  choices={metadata?.response_types_supported}
+                  multiple={false}
+                  classes={classes.selectFormControl}/>
+              </FormControl>
+              <FormControl>
                 <FormLabel component="legend">Scopes</FormLabel>
                 <CheckedSelect
                   id="scopes"
