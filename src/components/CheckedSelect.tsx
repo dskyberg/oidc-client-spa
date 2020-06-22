@@ -40,6 +40,7 @@ type CheckedSelectProps = {
     choices: string[]|undefined;
     classes?: string;
     width?: number;
+    multiple?: boolean;
 }
 
 const CheckedSelect:React.FC<CheckedSelectProps> = ({
@@ -48,7 +49,8 @@ const CheckedSelect:React.FC<CheckedSelectProps> = ({
     value,
     choices,
     classes,
-    width=250
+    width=250,
+    multiple=true
     }) =>
 {
 
@@ -71,7 +73,7 @@ const CheckedSelect:React.FC<CheckedSelectProps> = ({
             label={label}
             labelId={`${id}-label`}
             id={`${id}-checkbox`}
-            multiple
+            multiple={multiple}
             value={value}
             input={<Input />}
             renderValue={(selected) => (selected as string[]).join(', ')}
