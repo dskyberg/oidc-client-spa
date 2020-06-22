@@ -120,7 +120,7 @@ class SettingsDialog extends React.Component<SettingsDialogProps> {
                   id: 'response_type',
                 }}
               >
-              {metadata?.response_types_supported.map(rt => <option value={rt}>{rt}</option>)}
+              {metadata?.response_types_supported.map(rt => <option key={rt} value={rt}>{rt}</option>)}
               </Select>
             </FormControl>
             <FormControl>
