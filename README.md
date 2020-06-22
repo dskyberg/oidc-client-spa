@@ -1,3 +1,37 @@
+
+## How-To
+### Prerequisits
+* OIDC Provider: This client app was tested with https://github.com/dskyberg/oidc-server
+* Node: Before you begin, ensure Node is installed.  This has been tested with Node 14.0.4.
+
+Download this repository
+````bash
+$ git clone https://github.com/dskyberg/oidc-client-spa.git
+````
+
+Install the node components
+````bash
+$ cd oidc-client-spa
+$ npm install
+````
+
+Run the client
+````bash
+$ npm start
+````
+The client app should pop up on your default browser
+
+### Host Error
+If you get this error: `Error: getaddrinfo ENOTFOUIND <your hostname>`
+Try unsetting your HOST env variable
+````bash
+$ unset HOST
+$ npm start
+````
+
+
+## Developer Info
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
