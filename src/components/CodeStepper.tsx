@@ -25,6 +25,10 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import jwtDecode from 'jwt-decode'
 import {observer} from 'mobx-react'
+
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -71,15 +75,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const steps = [
   {
     label:'Metadata Request',
-    instructions: 'Get the OIDC Provider metadata, and configure the interaction',
+    instructions: 'Metadata: Fetch the OIDC Provider metadata directly from the provider\'s public endpoint, and configure the client with the information.',
   },
   {
     label:'Authorization Request',
-    instructions: 'Request an Authorization Code from the IdP'
+    instructions: 'Authorize: Your browser will be sent directly to the provider\'s domain.  You will authenticate to the provider, and consent to share your account attributes. The provider will then send you back to this app with an OIDC Authorization Code.'
   },
   {
     label:'Token Request',
-    instructions: 'Redeem the code for an access_token'
+    instructions: 'Tokens: We will exchange the returned Authorization Code for an access_token and id_token.'
   }
 ];
 
@@ -203,40 +207,42 @@ const  CodeStepper = observer(() => {
   }
 
   return (
-    <div className={classes.root}>
-      <Stepper activeStep={activeStep} className={classes.stepper}>
-        {steps.map((step, index) => {
-          const stepProps: { completed?: boolean } = {};
-          const labelProps: { optional?: React.ReactNode; error?: boolean } = {};
-          if (isStepFailed(index)) {
-            labelProps.error = true;
-            labelProps.optional = (
-              <Typography variant="caption" color="error">
-                {appState.steps[index].error}
-              </Typography>
-            )
-          }
-          return (
-            <Step key={index} {...stepProps}>
-              <StepLabel {...labelProps}>{steps[index].label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      <div>
-          <div>
-            <Typography className={classes.instructions}>
-                {getStepContent(activeStep)}
-            </Typography>
-            <div>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.button}>
-                Back
-              </Button>
+    <Card className={classes.root}>
+      <CardContent>
+        <Stepper activeStep={activeStep} className={classes.stepper}>
+          {steps.map((step, index) => {
+            const stepProps: { completed?: boolean } = {};
+            const labelProps: { optional?: React.ReactNode; error?: boolean } = {};
+            if (isStepFailed(index)) {
+              labelProps.error = true;
+              labelProps.optional = (
+                <Typography variant="caption" color="error">
+                  {appState.steps[index].error}
+                </Typography>
+              )
+            }
+            return (
+              <Step key={index} {...stepProps}>
+                <StepLabel {...labelProps}>{steps[index].label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+      </CardContent>
+      <CardContent>
+        <Typography className={classes.instructions}>
+          {getStepContent(activeStep)}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          className={classes.button}>
+          Back
+        </Button>
 
               <Button
                 variant="contained"
@@ -251,18 +257,18 @@ const  CodeStepper = observer(() => {
               {activeStep !== steps.length &&
                 (appState.isStepCompleted(activeStep) ? (
                   <Typography variant="caption" className={classes.completed}>
-                    Step {activeStep + 1} already completed
+                    Step {activeStep + 1} is complete
                   </Typography>
                 ) : (
                   <Button variant="contained" color="primary" onClick={handleStep}>
                     {appState.completedSteps === totalSteps() - 1 ? 'Finish' : 'Complete Step'}
                   </Button>
                 ))}
-            </div>
-          </div>
-      </div>
-      {renderData()}
-    </div>
+                </CardActions>
+                <CardContent>
+          {renderData()}
+      </CardContent>
+      </Card>
   );
 })
 export default CodeStepper
