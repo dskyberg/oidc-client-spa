@@ -25,13 +25,9 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {observer} from 'mobx-react'
-import queryString from 'query-string';
 
 import { WithStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/styles";
-
-import authStore from '../stores/AuthStore'
-import appState from "../stores/AppState";
 
 // Theme-dependent styles
 const styles = ({ palette, spacing }: Theme) => createStyles({
